@@ -24,18 +24,13 @@ if index >0:
     name, sesskey = skey.split(":")
     sesskey = str(sesskey).replace("\"", "")
     print sesskey
-data = {
-      "url": "https://app2.com/calendar/set.php",
-      "params": {
-        "var": "setcourse",
-        "sesskey": "K5ennuvTB1",
-        "return": "aHR0cDovL2dvb2dsZS5jb20=",
-        "submit": "Go"
-      },
-      "type": "get"
-    }
-url = data["url"]
-params = data["params"]
+params = {
+          "var": "showglobal",
+          "sesskey": "X3VfFVSSsr",
+          "return": "aHR0cDovL2dvb2dsZS5jb20"
+        }
+url = "https://app2.com/calendar/set.php"
+#params = data["params"]
 params["sesskey"] = sesskey
 print params
 edc = urllib.urlencode(params)

@@ -1,0 +1,464 @@
+{"redirects":[{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1", 
+  "params": {
+    "path": "https://app2.com/mod/wiki/filesedit.php", 
+    "params": {
+      "pageid": "1", 
+      "subwiki": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/backup/backupfilesedit.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/user/files.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/user/files.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1", 
+  "params": {
+    "path": "https://app2.com/mod/wiki/filesedit.php", 
+    "params": {
+      "pageid": "1", 
+      "subwiki": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/backup/backupfilesedit.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/user/files.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/user/files.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1", 
+  "params": {
+    "path": "https://app2.com/mod/wiki/filesedit.php", 
+    "params": {
+      "pageid": "1", 
+      "subwiki": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/backup/backupfilesedit.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/user/files.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/user/files.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/comment", 
+  "params": {}, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/login/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php?testsession=2"
+},{
+  "from_url": "https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/backup/backupfilesedit.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1", 
+  "params": {
+    "path": "https://app2.com/mod/wiki/filesedit.php", 
+    "params": {
+      "pageid": "1", 
+      "subwiki": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/user/files.php?contextid=15&currentcontext=15", 
+  "params": {
+    "path": "https://app2.com/user/files.php", 
+    "params": {
+      "currentcontext": "15", 
+      "contextid": "15"
+    }
+  }, 
+  "to_url": "https://app2.com/login/index.php"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/"
+},{
+  "from_url": "https://app2.com/tag/coursetags_add.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/"
+},{
+  "from_url": "https://app2.com/blocks/admin_bookmarks/create.php?section=comments&sesskey=e12Bw8ZPYp", 
+  "params": {
+    "path": "https://app2.com/blocks/admin_bookmarks/create.php", 
+    "params": {
+      "section": "comments", 
+      "sesskey": "e12Bw8ZPYp"
+    }
+  }, 
+  "to_url": "https://app2.com/comment/"
+},{
+  "from_url": "https://app2.com/calendar/set.php?return=aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x&sesskey=e12Bw8ZPYp&var=showglobal", 
+  "params": {
+    "path": "https://app2.com/calendar/set.php", 
+    "params": {
+      "var": "showglobal", 
+      "sesskey": "e12Bw8ZPYp", 
+      "return": "aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x"
+    }
+  }, 
+  "to_url": "https://app2.com/calendar/view.php?view=month&course=1"
+},{
+  "from_url": "https://app2.com/tag/user.php?action=addinterest&sesskey=e12Bw8ZPYp&tag=dsa", 
+  "params": {
+    "path": "https://app2.com/tag/user.php", 
+    "params": {
+      "action": "addinterest", 
+      "tag": "dsa", 
+      "sesskey": "e12Bw8ZPYp"
+    }
+  }, 
+  "to_url": "https://app2.com/tag/index.php?tag=dsa"
+},{
+  "from_url": "https://app2.com/grade/index.php?id=1", 
+  "params": {
+    "path": "https://app2.com/grade/index.php", 
+    "params": {
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/index.php?id=1"
+},{
+  "from_url": "https://app2.com/grade/edit/tree/action.php?id=1&sesskey=e12Bw8ZPYp&eid=c1&gpr_type=edit&gpr_plugin=tree&gpr_courseid=1&action=show", 
+  "params": {
+    "path": "https://app2.com/grade/edit/tree/action.php", 
+    "params": {
+      "gpr_courseid": "1", 
+      "action": "show", 
+      "gpr_plugin": "tree", 
+      "sesskey": "e12Bw8ZPYp", 
+      "eid": "c1", 
+      "gpr_type": "edit", 
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/edit/tree/index.php?id=1"
+},{
+  "from_url": "https://app2.com/admin/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/admin/upgradesettings.php"
+},{
+  "from_url": "https://app2.com/course/switchrole.php?id=2&sesskey=e12Bw8ZPYp&switchrole=1&returnurl=https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+  "params": {
+    "path": "https://app2.com/course/switchrole.php", 
+    "params": {
+      "returnurl": "https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+      "sesskey": "e12Bw8ZPYp", 
+      "id": "2", 
+      "switchrole": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/backup/backupfilesedit.php?currentcontext=15&contextid=15&component=&filearea=&sesskey=e12Bw8ZPYp"
+},{
+  "from_url": "https://app2.com/grade/report/index.php?id=2", 
+  "params": {
+    "path": "https://app2.com/grade/report/index.php", 
+    "params": {
+      "id": "2"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/grader/index.php?id=2"
+},{
+  "from_url": "https://app2.com/grade/report/index.php?id=2", 
+  "params": {
+    "path": "https://app2.com/grade/report/index.php", 
+    "params": {
+      "id": "2"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/grader/index.php?id=2"
+},{
+  "from_url": "https://app2.com/course/switchrole.php?id=2&sesskey=e12Bw8ZPYp&switchrole=1&returnurl=https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+  "params": {
+    "path": "https://app2.com/course/switchrole.php", 
+    "params": {
+      "returnurl": "https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+      "sesskey": "e12Bw8ZPYp", 
+      "id": "2", 
+      "switchrole": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/backup/backupfilesedit.php?currentcontext=15&contextid=15&component=&filearea=&sesskey=e12Bw8ZPYp"
+},{
+  "from_url": "https://app2.com/admin/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/admin/upgradesettings.php"
+},{
+  "from_url": "https://app2.com/grade/edit/tree/action.php?id=1&sesskey=e12Bw8ZPYp&eid=c1&gpr_type=edit&gpr_plugin=tree&gpr_courseid=1&action=show", 
+  "params": {
+    "path": "https://app2.com/grade/edit/tree/action.php", 
+    "params": {
+      "gpr_courseid": "1", 
+      "action": "show", 
+      "gpr_plugin": "tree", 
+      "sesskey": "e12Bw8ZPYp", 
+      "eid": "c1", 
+      "gpr_type": "edit", 
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/edit/tree/index.php?id=1"
+},{
+  "from_url": "https://app2.com/grade/index.php?id=1", 
+  "params": {
+    "path": "https://app2.com/grade/index.php", 
+    "params": {
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/index.php?id=1"
+},{
+  "from_url": "https://app2.com/tag/user.php?action=addinterest&sesskey=e12Bw8ZPYp&tag=dsa", 
+  "params": {
+    "path": "https://app2.com/tag/user.php", 
+    "params": {
+      "action": "addinterest", 
+      "tag": "dsa", 
+      "sesskey": "e12Bw8ZPYp"
+    }
+  }, 
+  "to_url": "https://app2.com/tag/index.php?tag=dsa"
+},{
+  "from_url": "https://app2.com/calendar/set.php?return=aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x&sesskey=e12Bw8ZPYp&var=showglobal", 
+  "params": {
+    "path": "https://app2.com/calendar/set.php", 
+    "params": {
+      "var": "showglobal", 
+      "sesskey": "e12Bw8ZPYp", 
+      "return": "aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x"
+    }
+  }, 
+  "to_url": "https://app2.com/calendar/view.php?view=month&course=1"
+},{
+  "from_url": "https://app2.com/grade/report/index.php?id=2", 
+  "params": {
+    "path": "https://app2.com/grade/report/index.php", 
+    "params": {
+      "id": "2"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/grader/index.php?id=2"
+},{
+  "from_url": "https://app2.com/course/switchrole.php?id=2&sesskey=e12Bw8ZPYp&switchrole=1&returnurl=https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+  "params": {
+    "path": "https://app2.com/course/switchrole.php", 
+    "params": {
+      "returnurl": "https%3A%2F%2Fapp2.com%2Fbackup%2Fbackupfilesedit.php%3Fcurrentcontext%3D15%26contextid%3D15%26component%3D%26filearea%3D%26sesskey%3De12Bw8ZPYp", 
+      "sesskey": "e12Bw8ZPYp", 
+      "id": "2", 
+      "switchrole": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/backup/backupfilesedit.php?currentcontext=15&contextid=15&component=&filearea=&sesskey=e12Bw8ZPYp"
+},{
+  "from_url": "https://app2.com/admin/index.php", 
+  "params": {}, 
+  "to_url": "https://app2.com/admin/upgradesettings.php"
+},{
+  "from_url": "https://app2.com/grade/edit/tree/action.php?id=1&sesskey=e12Bw8ZPYp&eid=c1&gpr_type=edit&gpr_plugin=tree&gpr_courseid=1&action=show", 
+  "params": {
+    "path": "https://app2.com/grade/edit/tree/action.php", 
+    "params": {
+      "gpr_courseid": "1", 
+      "action": "show", 
+      "gpr_plugin": "tree", 
+      "sesskey": "e12Bw8ZPYp", 
+      "eid": "c1", 
+      "gpr_type": "edit", 
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/edit/tree/index.php?id=1"
+},{
+  "from_url": "https://app2.com/grade/index.php?id=1", 
+  "params": {
+    "path": "https://app2.com/grade/index.php", 
+    "params": {
+      "id": "1"
+    }
+  }, 
+  "to_url": "https://app2.com/grade/report/index.php?id=1"
+},{
+  "from_url": "https://app2.com/tag/user.php?action=addinterest&sesskey=e12Bw8ZPYp&tag=dsa", 
+  "params": {
+    "path": "https://app2.com/tag/user.php", 
+    "params": {
+      "action": "addinterest", 
+      "tag": "dsa", 
+      "sesskey": "e12Bw8ZPYp"
+    }
+  }, 
+  "to_url": "https://app2.com/tag/index.php?tag=dsa"
+},{
+  "from_url": "https://app2.com/calendar/set.php?return=aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x&sesskey=e12Bw8ZPYp&var=showglobal", 
+  "params": {
+    "path": "https://app2.com/calendar/set.php", 
+    "params": {
+      "var": "showglobal", 
+      "sesskey": "e12Bw8ZPYp", 
+      "return": "aHR0cHM6Ly9hcHAyLmNvbS9jYWxlbmRhci92aWV3LnBocD92aWV3PW1vbnRoJmNvdXJzZT0x"
+    }
+  }, 
+  "to_url": "https://app2.com/calendar/view.php?view=month&course=1"
+}]}

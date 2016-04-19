@@ -12,7 +12,7 @@ import sys
 def writeoutput(maps):
     print "Writing output"
     phase3output["exploits"] = vulnerlist
-    with open('output/phase3output.json', 'w') as w:
+    with open(outputpath, 'w') as w:
         json.dump(maps, w, indent=2)
 
 
@@ -30,6 +30,7 @@ def forminjectiondictionary(key, value, method):
 
 def isvulnerabilitypresent(inp):
     s = str(inp)
+    logging.info("Response url is: %s",str(inp))
     if s.find("www.google.com") > 0 and app_name not in s:
         return True
     else:
@@ -51,10 +52,6 @@ def storevulnerabilitydetails(method, pageurl, paramsdict):
         vdc["type"] = method
         vdc["params"] = paramsdict
         vulnerlist.append(vdc)
-
-
-def extractheadermethod(params, pagedic, pageurlt):
-    logging.info("Inside HEADER method")
 
 
 def removeasciitext(postdc):
@@ -148,7 +145,7 @@ def launchgetattack(path, paramsdict):
             edc = urlencode(paramsdict)
             url = path + '?' +edc
             try:
-                resp = opener.open(url)
+                resp = opener.open(path,edc)
                 if isvulnerabilitypresent(resp.url):
                     pathset.add(url)
                     storevulnerabilitydetails("GET", path, paramsdict)
@@ -187,8 +184,9 @@ def formatoutput(phase3output):
     phase3output["exploits"] = []
     phase3output["appname"] = app_name
     phase3output["logindetails"] = logindetails
-    #phase3output["loginurl"] = loginurl
+    phase3output["loginurl"] = loginurl
     phase3output["baseurl"] = baseurl
+    phase3output["outputfile"] = outputfile
 
 
 def startredirectinjections(redirect):
@@ -220,9 +218,30 @@ def startredirectinjections(redirect):
     except:
         logging.error('Something went wrong at %s', url)
 
+def load(filename):
+    f = open(filename, "r")
+    config = json.load(f)
+    count = 0
+    for app in config.get("apps"):
+        if app.get("is_running") == "true":
+            break
+        count = count + 1
+    return config.get("apps")[count]
+
+def readredirectfile():
+    logging.info("Reading redirect.json file")
+    with open('output/'+redirectfile) as f:
+        file = json.load(f)
+        redirect = file["redirects"]
+        return redirect
+
+
+logging.basicConfig(filename='logs/phase3.log',level=logging.DEBUG)
+logging.info('Starting executing phase 3 of Unvalidated Redirect URL')
 baseurl = ""
 sess_id = ""
 app_name = ""
+loginurl = ''
 logindetails = dict()
 cookies = dict()
 phase3output = dict()
@@ -231,47 +250,50 @@ payload = []
 vulnerlist = []
 pathset = set()
 redirect = dict()
-logging.basicConfig(filename='logs/phase3.log',level=logging.DEBUG)
-logging.info('Starting executing phase 3 of Unvalidated Redirect URL')
+outputpath = ''
+username = ''
+password = ''
+filename = 'tutorial/spiders/config.json'
 
+app = load(filename)
+outputfile = app["output_file"]
+redirectfile = app["redirect_file"]
 
-with open('output/phase1Output.json') as f:
+with open('output/' + outputfile) as f:
     ele = json.load(f)
-    app_name = "app10"
+    app_name = ele["name"]
     baseurl = ele["baseurl"]
-    #loginurl = ele["loginurl"]
-    logindetails = []#ele["logindetails"]
-    #cookie = ele["cookies"]
+    loginurl = ele["loginurl"]
+    logindetails = ele["logindetails"]
+    # cookie = ele["cookies"]
     injectiondict = ele["injections"]
+    outputpath = 'output/' + app_name + "_p3.json"
 
 with open('output/phase2output.json') as f:
     file = json.load(f)
     payload = file["payload"]
 
-def readredirectfile():
-    with open('output/phase1Redirect.json') as f:
-        file = json.load(f)
-        redirect = file["redirects"]
-        return redirect
 
-for ele in logindetails:
-    username = ele["username"]
-    password = ele["password"]
+if len(logindetails)>0:
+    for ele in logindetails:
+        username = ele["username"]
+        password = ele["password"]
 
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 opener.addheaders = [('Referer','https://www.google.com')]
-sesskey = "http://www.google.com"
-# login_data = urllib.urlencode({'username' : username, 'password' : password})
-# lp = opener.open('https://app2.com/login/index.php', login_data)
-# print lp.url
-# s = str(lp.read())
-# index = s.index("sesskey")
-# if index >0:
-#     skey = s[index:index+20]
-#     name, sesskey = skey.split(":")
-#     sesskey = str(sesskey).replace("\"", "")
-#     print sesskey
+sesskey = ''
+if len(username) >0:
+    login_data = urllib.urlencode({'username' : username, 'password' : password})
+    lp = opener.open(loginurl, login_data)
+    #print lp.url
+    s = str(lp.read())
+    index = s.index("sesskey")
+    if index >0:
+        skey = s[index:index+20]
+        name, sesskey = skey.split(":")
+        sesskey = str(sesskey).replace("\"", "")
+        print sesskey
 formatoutput(phase3output)
 getinjectionpoint(injectiondict)
 redirectdc = readredirectfile()

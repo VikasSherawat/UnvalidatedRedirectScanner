@@ -10,21 +10,23 @@ import json
 from scrapy import signals
 from scrapy.xlib.pydispatch import dispatcher
 #from urllib.parse import urlparse
-from urlparse import urlparse, urljoin
+from urlparse import urlparse, urljoin,parse_qs
 from scrapy.conf import settings
 from scrapy.exceptions import CloseSpider
 import urllib
-
+import re
+import sys
 
 
 class DmozSpider(scrapy.Spider):
-    name = "app2"
+    name = "app"
     handle_httpstatus_list = [302,303,301,404,500]
-    allowed_domains = ['app2.com']
-    baseurl = 'https://app2.com/'
-    formdata = {'username': 'admin', 'password': 'AdminAdmin1!'}
+    app_name = ""
+    allowed_domains = []
+    baseurl = ''
+    formdata = {}
     visited_url = set()
-    login_url = 'https://app2.com/login/index.php'
+    login_url = ''
     invalidresponse = []
     page_visited = set()
     pagegetdict = dict()
@@ -32,61 +34,100 @@ class DmozSpider(scrapy.Spider):
     output = dict()
     cookies = []
     injectiondictionary = dict()
-    start_urls = [
-        'https://app2.com/login/index.php'
-        #'http://app10.com/index.php'
-    ]
+    redirect_dict = dict()
+    start_urls = []
+    ignored_paths = []
+    output_filename = ""
+    redirect_filename = ""
+    index = ""
+
+    def load(self,filename):
+        try:
+          f = open(filename, "r")
+          config = json.load(f)
+          count = 0
+          for app in config.get("apps"):
+            if app.get("is_running") == "true":
+              break
+            count = count + 1
+          return config.get("apps")[count]
+        except:
+            print "file not found ", filename
+            sys.exit(1)
+
     def __init__(self):
-        self.output["name"] = self.name
-        loginList = []
-        loginList.append(self.formdata)
-        self.output["logindetails"] = loginList
+        print "*******************************************",sys.path
+        app = self.load('/home/user/scanner/UnvalidatedRedirectScanner/tutorial/spiders/config.json')
+        self.app_name = app["app_name"].strip()
+        self.baseurl = app["base_url"].strip()
+        for ignore in app["ignored_paths"]:
+          self.ignored_paths.append(re.compile(ignore))
+        for strt_url in app["start_urls"]:
+          self.start_urls.append(strt_url)
+        for allwd_domains in app["allowed_domains"]:
+          self.allowed_domains.append(allwd_domains)
+        auth_details = app.get("auth",None)
         self.output["baseurl"] = self.baseurl
-        self.output["loginurl"] = self.login_url
+        if auth_details is not None:
+          username = auth_details.get("username")
+          password = auth_details.get("password")
+          self.login_url = auth_details.get("login_url")
+          loginList = []
+          self.formdata.update({"username":username,"password":password})
+          loginList.append(self.formdata)
+          self.output["logindetails"] = loginList
+          self.output["loginurl"] = self.login_url
+          self.output["name"] = app["app_name"].strip()
+        self.output_filename = app["output_file"].strip()
+        self.output["outputfile"] = self.output_filename
+        self.redirect_filename = app["redirect_file"].strip()
+        self.output["redirectfile"] = self.redirect_filename
         dispatcher.connect(self.spider_closed, signals.spider_closed)
 
+
     def parse(self, response):
-            print("--------------------------Inside parse method----------------------------------")
-            return scrapy.FormRequest(self.login_url,
-                                      formdata=self.formdata,
-                                      dont_filter=True,
-                                      callback=self.check_login)
+        print("--------------------------Inside parse method----------------------------------")
+        if self.app_name == "app10":
+          return [Request(url=url, dont_filter=True, callback=self.extract_url) for url in self.start_urls]
+        else:
+          return scrapy.FormRequest(self.login_url,
+                                  formdata=self.formdata,
+                                  dont_filter=True,
+                                  callback=self.check_login)
 
     def check_login(self, response):
-        print("--------------------------Inside check login method----------------------------------")
-        print response.body
-        if True: #"Admin User" in str(response.body):
-            print('Successfully Logged in!!! ')
-            cook = response.request.headers.getlist("Cookie")
-            print cook
-            for c in cook:
-                splitval = self.split_cookies(c)
+            print("--------------------------Inside check login method----------------------------------")
+            for c in response.request.headers.getlist("Cookie"):
+              splitval = self.split_cookies(c)
+              if len(self.cookies) == 0:
                 self.cookies.append(splitval)
+            print('Successfully Logged in!!! ')
             self.logger.info("Cookies are %s", self.cookies)
             self.output["cookies"] = self.cookies
-            urllist = list()
-            urllist.append("https://app2.com/mod/wiki/filesedit.php?pageid=1&subwiki=1")
-            urllist.append('https://app2.com/backup/backupfilesedit.php?currentcontext=22&contextid=22')
-            for url in urllist:
-                yield Request(url, callback = self.extract_url)
-        else:
-            print("Logged in Failed-----------------------------------------------------Failed")
-            return
+            for url in self.start_urls:
+              yield Request(url,callback=self.extract_url)
+
+    def prep_url(self, uri, on_url):
+      url = uri
+      if url.find("://") < 0 and url.startswith("//") == False:
+        parts = urlparse(on_url)
+        url = urljoin(on_url, uri)
+      return url
 
     def extract_url(self, response):
+        if response is None:
+          return
         self.logger.info("--------------------------Inside extract_url method for %s", response.url)
         self.extractformdata(response)
         ls = response.xpath('//a/@href').extract()
         status = response.status
+
         for url in ls:
             if self.validURL(url, status):
-                if str(url).startswith('/'):
+                if str(url).startswith('/') or "http" not in str(url):
                     url = urljoin(self.baseurl, url)
-                if str(url).find("/") == -1:
-                    slashindex = str(response.url).rfind("/")
-                    url = str(response.url)[0:slashindex+1]+url
                 p = urlparse(url)
-                if p.path not in self.page_visited:
+                if url not in self.visited_url and p.path not in self.page_visited:
                     self.page_visited.add(p.path)
                     self.visited_url.add(url)
                     self.logger.info("Added URL is -->%s", url)
@@ -98,20 +139,39 @@ class DmozSpider(scrapy.Spider):
 
     def validURL(self, url,status):
         url = str(url)
+        p = urlparse(url)
         if str(status).startswith('4') or url.startswith('#') or "logout" in url:
             return False
-        elif url.startswith('/') or url.find("/") == -1:
+        elif p.netloc not in self.allowed_domains:
+          return False
+        elif url.startswith('/'):
             return True
-        elif self.name in url: # ("http" in url and self.name not in url):
-            return True
+        #elif not("app10" in url) and "http" in url:
+         #   return False
         else:
-            return False
+            return True
+
+    def sendrequesttoform(self, requesttype, formparamlist, actionLink,url):
+        self.logger.info('Inside sendrequesttoform method')
+
+        #actionLink = self.prep_url(actionLink, url)
+        p = urlparse(actionLink)
+        if p.path not in self.page_visited:
+          self.logger.info('About to crawl %s %s',actionLink,requesttype)
+          self.page_visited.add(p.path)
+          self.visited_url.add(actionLink)
+          if requesttype.upper() == "GET":
+            return Request("%s?%s" % (actionLink, urllib.urlencode(formparamlist)) if len(formparamlist) > 0 else actionLink,
+            callback=self.extract_url)
+          elif requesttype.upper() == "POST":
+            return Request(actionLink, method="POST",
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            body=urllib.urlencode({k: v.encode("utf8") for k, v in formparamlist.iteritems()}),
+            callback=self.extract_url)
 
     def extractformdata(self, response):
         self.logger.info('Scanning page %s', response.url)
-        if response.xpath('//form') is None:
-            return
-        formxpath = response.xpath('//form')
+        formxpath = response.selector.xpath('//form')
         formList = []
         for form in formxpath:
             formsdict = dict()
@@ -154,6 +214,10 @@ class DmozSpider(scrapy.Spider):
             formsdict["method"] = requestType
             formsdict["formactionLink"] = actionLink
             formsdict["params"] = formparamList
+            #self.logger.info('This form action link is %s', actionLink)
+            #self.logger.info('FormParamList is %s %s',formparamList, requestType)
+            #self.sendrequesttoform(requestType, formparamList, actionLink)
+            #self.test()
             formList.append(formsdict)
         pageformsdict = dict()
         pageformsdict["pageurl"] = response.url
@@ -166,6 +230,11 @@ class DmozSpider(scrapy.Spider):
             formdc["body"] = pageformsdict
             formdc["getlist"] = dict()
             self.injectiondictionary[response.url] = formdc
+
+
+
+    def test(self):
+        self.logger.info('Inside test method-----')
 
     def addURLinjectList(self, ls, url):
         self.logger.info("Inside Add URL injectLIst method for url %s ", url)
@@ -191,8 +260,9 @@ class DmozSpider(scrapy.Spider):
             path, query = str(url).split('?')
             queryList = str(query).split('&')
             for ele in queryList:
-                key, value = str(ele).split('=')
-                paramdc[key] = value
+                if str(ele).index("=") > 0 :
+                  key, value = str(ele).split('=')
+                  paramdc[key] = value
             getList["path"] = path
             getList["params"] = paramdc
         return getList
@@ -212,7 +282,17 @@ class DmozSpider(scrapy.Spider):
         self.output["injections"] = self.injectiondictionary
         self.writePageURL()
         self.writeOutputJson()
+        self.writeRedirects()
         self.logger.info('========================THE END ==========================================')
+
+    def writeRedirects(self):
+        data = ""
+        with open('output/' + self.redirect_filename, 'r') as myfile:
+          data= myfile.read()
+        data = data[:len(data)-1]
+        f = open('output/' + self.redirect_filename,'w')
+        f.write("{\"redirects\":[" + data+"]}")
+        f.close()
 
     def writePageURL(self):
         self.logger.info("Writing all unique pages to a file")
@@ -224,6 +304,6 @@ class DmozSpider(scrapy.Spider):
 
     def writeOutputJson(self):
         self.logger.info("dumping json data")
-        f = open("/home/user/tutorial/phase1Output.json", "w")
+        f = open('output/'+self.output_filename, "w")
         json.dump(self.output, f, indent=2)
         f.close()

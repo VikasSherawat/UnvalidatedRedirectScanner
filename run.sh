@@ -1,8 +1,10 @@
+rm output/*.json
+rm logs/*.log
 echo "---------------------------------------------------"
 echo "Unvalidated Redirect scanner started"
 echo "---------------------------------------------------"
 echo "Phase1- Crawling started"
-scrapy crawl app2
+scrapy crawl app
 echo "Phase1- ended. check the Output file"
 echo "---------------------------------------------------"
 echo "Phase2- Generating Payload startedf"
