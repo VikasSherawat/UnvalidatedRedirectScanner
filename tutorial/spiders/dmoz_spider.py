@@ -67,8 +67,6 @@ class DmozSpider(scrapy.Spider):
             urllist = list()
             urllist.append("https://app2.com/mod/wiki/filesedit.php?pageid=1&subwiki=1")
             urllist.append('https://app2.com/backup/backupfilesedit.php?currentcontext=22&contextid=22')
-            # url = "https://app2.com/mod/wiki/filesedit.php?pageid=1&subwiki=1"
-            # url = 'https://app2.com/backup/backupfilesedit.php?currentcontext=22&contextid=22'
             for url in urllist:
                 yield Request(url, callback = self.extract_url)
         else:
@@ -218,7 +216,7 @@ class DmozSpider(scrapy.Spider):
 
     def writePageURL(self):
         self.logger.info("Writing all unique pages to a file")
-        f = open("/home/user/tutorial/allLinks.txt", "w")
+        f = open("logs/allpages.log", "w")
         for ele in self.visited_url:
             f.write(ele)
             f.write('\n')

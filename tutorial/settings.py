@@ -14,7 +14,7 @@ BOT_NAME = 'tutorial'
 SPIDER_MODULES = ['tutorial.spiders']
 NEWSPIDER_MODULE = 'tutorial.spiders'
 LOG_STDOUT = True
-LOG_FILE = '/home/user/tutorial/logs/phase1.log'
+LOG_FILE = 'logs/phase1.log'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
