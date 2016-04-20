@@ -98,6 +98,7 @@ if login_url != "":
     login_data = urllib.urlencode({'username' : username, 'password' : password})
     lp = opener.open(login_url, login_data)
     s = str(lp.read())
+    index = -1
     if "sesskey" in s:
         index = s.index("sesskey")
     if index >0:
@@ -182,4 +183,5 @@ print("Summary : ")
 print("Total Bugs reported:"+str(bugCount+falsePositiveCount))
 print("No. of bugs detected:", str(bugCount))
 print("No. of false positives detected:", str(falsePositiveCount))
+
 
