@@ -13,32 +13,20 @@ password = "AdminAdmin1!"
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 opener.addheaders = [('Referer','https://www.google.com')]
-sesskey = "http://www.google.com"
-login_data = urllib.urlencode({'username' : username, 'password' : password})
-lp = opener.open('https://app2.com/login/index.php', login_data)
-print lp.url
-s = str(lp.read())
-index = s.index("sesskey")
-if index >0:
-    skey = s[index:index+20]
-    name, sesskey = skey.split(":")
-    sesskey = str(sesskey).replace("\"", "")
-    print sesskey
+
 param =  {
-          "var": "showglobal",
-          "sesskey": "fZLuffQhAN",
-          "return": "aHR0cDovL2dvb2dsZS5jb20="
-        }
-
-
-
-url = "https://app2.com/calendar/set.php"
+        "i": "http://google.com",
+        "m": "gbook",
+        "t": "cy9NLS5Jys%2FPBgA%3D",
+        "mod": "qcomment"
+      }
+url = "http://app10.com/search.php?query=&mod_id=http%3A%2F%2Fgoogle.com&AXSRF_token="
 #params = data["params"]
-param["sesskey"] = sesskey
+param["sesskey"] = ""
 edc = urllib.urlencode(param)
 fullurl = url +"?"+ edc
 try:
-    resp = opener.open(url, edc)
+    resp = opener.open(url)
     print resp.url
 except HTTPError as h:
     print h.reason, h.code

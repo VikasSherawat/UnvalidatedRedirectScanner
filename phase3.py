@@ -153,7 +153,7 @@ def launchgetattack(path, paramsdict):
             try:
                 resp = opener.open(path,edc)
                 if isvulnerabilitypresent(resp.url):
-                    storevulnerabilitydetails("GET", url, paramsdict)
+                    storevulnerabilitydetails("GET", path, paramsdict)
                     return
             except HTTPError as h:
                 logging.error('Page cannot be found %s', path)
@@ -301,7 +301,6 @@ if len(logindetails)>0:
 
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
-opener.addheaders = [('Referer','https://www.google.com')]
 sesskey = ''
 if len(username) >0:
     login_data = urllib.urlencode({'username' : username, 'password' : password})
@@ -316,9 +315,11 @@ if len(username) >0:
         name, sesskey = skey.split(":")
         sesskey = str(sesskey).replace("\"", "")
         #print sesskey
+
+opener.addheaders = [('Referer','https://www.google.com')]
 formatoutput(phase3output)
-getinjectionpoint(injectiondict)
 redirectdc = readredirectfile()
 startredirectinjections(redirectdc)
+getinjectionpoint(injectiondict)
 writeoutput(phase3output)
 logging.info('Phase 3 of Unvalidated Redirect URL has ended. Check the output file for injection points')

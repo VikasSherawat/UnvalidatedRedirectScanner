@@ -164,7 +164,7 @@ for exploit in exploits:
         logging.info("Page url : %s", url)
         logging.info("Attack type : Redirect")
         try:
-            resp = opener.open(url, data=edc)
+            resp = opener.open(url)
             saveResponse(indexCount, resp.read())
             logging.info("Response url : " + resp.url)
             if isvulnerable(resp.url):

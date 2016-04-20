@@ -124,9 +124,9 @@ class DmozSpider(scrapy.Spider):
         status = response.status
 
         for url in ls:
+            if str(url).startswith('/') or "http" not in str(url):
+                url = urljoin(self.baseurl, url)
             if self.validURL(url, status):
-                if str(url).startswith('/') or "http" not in str(url):
-                    url = urljoin(self.baseurl, url)
                 p = urlparse(url)
                 if url not in self.visited_url and p.path not in self.page_visited:
                     self.page_visited.add(p.path)
