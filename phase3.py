@@ -10,7 +10,7 @@ import sys
 
 
 def writeoutput(maps):
-    print "Writing output"
+    #print "Writing output"
     phase3output["exploits"] = vulnerlist
     with open(outputpath, 'w') as w:
         json.dump(maps, w, indent=2)
@@ -36,8 +36,7 @@ def isvulnerabilitypresent(inp):
     else:
         return False
 
-
-def urlalreadyadded(pageurl):
+def urllreadyadded(pageurl):
     for ele in vulnerlist:
         if ele["url"] == pageurl:
             logging.info("URL is already present in the bug dictionary %s", pageurl)
@@ -46,7 +45,7 @@ def urlalreadyadded(pageurl):
 
 
 def storevulnerabilitydetails(method, pageurl, paramsdict):
-    if pageurl not in pathset:
+    if True: #pageurl not in pathset:
         vdc = dict()
         vdc["url"] = pageurl
         vdc["type"] = method
@@ -190,7 +189,6 @@ def formatoutput(phase3output):
 
 
 def startredirectinjections(redirect):
-    try:
         for eachitem in redirect:
             url = eachitem["from_url"]
             if url in pathset:
@@ -202,38 +200,48 @@ def startredirectinjections(redirect):
                 datadc = paramsdc["params"]
                 edc = urlencode(datadc)
                 surl = path + "?" + edc
-            resp = opener.open(url)
-            if isvulnerabilitypresent(resp.url):
-                pathset.add(url)
-                logging.info('Referrer Bug found at %s', url)
-                if num ==0:
-                    storevulnerabilitydetails("redirect", url, {})
-                else:
-                    storevulnerabilitydetails("redirect",path, datadc)
+            try:
+                resp = opener.open(url)
+                if isvulnerabilitypresent(resp.url):
+                    pathset.add(url)
+                    logging.info('Referrer Bug found at %s', url)
+                    if num ==0:
+                        storevulnerabilitydetails("redirect", url, {})
+                    else:
+                        storevulnerabilitydetails("redirect",path, datadc)
+            except HTTPError as h:
+                logging.error('Page cannot be found %s', url)
+            except URLError as e:
+                logging.error('URL is malformed %s', url)
+            except:
+                logging.error('Something went wrong at %s', url)
 
-    except HTTPError as h:
-        logging.error('Page cannot be found %s', url)
-    except URLError as e:
-        logging.error('URL is malformed %s', url)
-    except:
-        logging.error('Something went wrong at %s', url)
 
 def load(filename):
-    f = open(filename, "r")
-    config = json.load(f)
-    count = 0
-    for app in config.get("apps"):
-        if app.get("is_running") == "true":
-            break
-        count = count + 1
-    return config.get("apps")[count]
+    try:
+        f = open(filename, "r")
+        config = json.load(f)
+        count = 0
+        for app in config.get("apps"):
+            if app.get("is_running") == "true":
+                break
+            count = count + 1
+        return config.get("apps")[count]
+    except:
+        logging.error('Config file not found  %s', filename)
+        sys.exit(1)
+
 
 def readredirectfile():
     logging.info("Reading redirect.json file")
-    with open('output/'+redirectfile) as f:
-        file = json.load(f)
-        redirect = file["redirects"]
-        return redirect
+    try:
+        logging.info("Redirect file name is %s",redirectfile)
+        with open(redirectfile) as f:
+            file = json.load(f)
+            redirect = file["redirects"]
+            return redirect
+    except:
+        logging.error('Redirect file not found  %s', redirectfile)
 
 
 logging.basicConfig(filename='logs/phase3.log',level=logging.DEBUG)
@@ -256,23 +264,29 @@ password = ''
 filename = 'tutorial/spiders/config.json'
 
 app = load(filename)
-outputfile = app["output_file"]
-redirectfile = app["redirect_file"]
+outputfile = 'output/'+app["output_file"]
+redirectfile = 'output/'+app["redirect_file"]
 
-with open('output/' + outputfile) as f:
-    ele = json.load(f)
-    app_name = ele["name"]
-    baseurl = ele["baseurl"]
-    loginurl = ele["loginurl"]
-    logindetails = ele["logindetails"]
-    # cookie = ele["cookies"]
-    injectiondict = ele["injections"]
-    outputpath = 'output/' + app_name + "_p3.json"
+try:
+    with open(outputfile) as f:
+        ele = json.load(f)
+        app_name = ele["name"]
+        baseurl = ele["baseurl"]
+        loginurl = ele["loginurl"]
+        logindetails = ele["logindetails"]
+        # cookie = ele["cookies"]
+        injectiondict = ele["injections"]
+        outputpath = 'output/' + app_name + "_p3.json"
+except:
+    logging.error("File not found %s",outputfile)
 
-with open('output/phase2output.json') as f:
-    file = json.load(f)
-    payload = file["payload"]
-
+try:
+    with open('output/phase2output.json') as f:
+        file = json.load(f)
+        payload = file["payload"]
+except:
+    logging.error("Could not load payload file")
+    sys.exit(1)
 
 if len(logindetails)>0:
     for ele in logindetails:
@@ -288,12 +302,14 @@ if len(username) >0:
     lp = opener.open(loginurl, login_data)
     #print lp.url
     s = str(lp.read())
-    index = s.index("sesskey")
+    index = -1
+    if "sesskey" in s:
+        index = s.index("sesskey")
     if index >0:
         skey = s[index:index+20]
         name, sesskey = skey.split(":")
         sesskey = str(sesskey).replace("\"", "")
-        print sesskey
+        #print sesskey
 formatoutput(phase3output)
 getinjectionpoint(injectiondict)
 redirectdc = readredirectfile()

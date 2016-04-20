@@ -25,11 +25,15 @@ if index >0:
     sesskey = str(sesskey).replace("\"", "")
     print sesskey
 params = {
-          "var": "showglobal",
+          "subwiki": "1",
+        "pageid":"1",
+          "_qf__mod_wiki_filesedit_form":"1",
+          "files_filemanager":"160904243",
+            "submitbutton":"Save changes",
           "sesskey": "X3VfFVSSsr",
-          "return": "aHR0cDovL2dvb2dsZS5jb20"
+          "returnurl": "www.google.com"
         }
-url = "https://app2.com/calendar/set.php"
+url = "https://app2.com/mod/wiki/filesedit.php"
 #params = data["params"]
 params["sesskey"] = sesskey
 print params

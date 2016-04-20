@@ -16,7 +16,7 @@ from scrapy.exceptions import CloseSpider
 import urllib
 import re
 import sys
-
+import os
 
 class DmozSpider(scrapy.Spider):
     name = "app"
@@ -87,10 +87,11 @@ class DmozSpider(scrapy.Spider):
 
     def parse(self, response):
         print("--------------------------Inside parse method----------------------------------")
-        if self.app_name == "app10":
-          return [Request(url=url, dont_filter=True, callback=self.extract_url) for url in self.start_urls]
+        self.logger.info('login url value is %s',self.login_url)
+        if len(self.login_url) <= 0:
+            return [Request(url=url, dont_filter=True, callback=self.extract_url) for url in self.start_urls]
         else:
-          return scrapy.FormRequest(self.login_url,
+            return scrapy.FormRequest(self.login_url,
                                   formdata=self.formdata,
                                   dont_filter=True,
                                   callback=self.check_login)
@@ -287,12 +288,13 @@ class DmozSpider(scrapy.Spider):
 
     def writeRedirects(self):
         data = ""
-        with open('output/' + self.redirect_filename, 'r') as myfile:
-          data= myfile.read()
-        data = data[:len(data)-1]
-        f = open('output/' + self.redirect_filename,'w')
-        f.write("{\"redirects\":[" + data+"]}")
-        f.close()
+        if os.path.isfile("output/" + self.redirect_filename):
+          with open('output/' + self.redirect_filename, 'r') as myfile:
+            data = myfile.read()
+          data = data[:len(data)-1]
+          f = open('output/' + self.redirect_filename, 'w')
+          f.write("{\"redirects\":[" + data+"]}")
+          f.close()
 
     def writePageURL(self):
         self.logger.info("Writing all unique pages to a file")

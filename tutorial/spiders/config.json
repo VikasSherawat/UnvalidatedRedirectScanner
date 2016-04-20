@@ -1,20 +1,20 @@
-{  "apps":[  
+{  "apps":[
       {
          "output_file":"app2_p1.json",
-         "is_running":"true",
+         "is_running":"false",
          "redirect_file":"app2_p1_redirect.json",
          "app_name":"app2",
          "start_urls":[ "https://app2.com/index.php","https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1","https://app2.com/comment","https://app2.com/user/files.php?contextid=15&currentcontext=15","https://app2.com/tag/coursetags_add.php","https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15"],
          "allowed_domains":["app2.com"],
-         "ignored_paths":[  
+         "ignored_paths":[
             "\\.(jpg|gif|png)$",
             "^/css",
             "^/javascript",
             "^/users/login",
             "^/users/logout"
          ],
-         "auth":{  
-            "login_url":"https://app2.com/login/index.php", 
+         "auth":{
+            "login_url":"https://app2.com/login/index.php",
             "username":"admin",
             "password":"AdminAdmin1!"
          },
@@ -27,38 +27,57 @@
          "app_name":"app8",
          "start_urls":[ "https://app8.com/upload/index.php"],
          "allowed_domains":["app8.com"],
-         "ignored_paths":[  
+         "ignored_paths":[
             "\\.(jpg|gif|png)$",
             "^/css",
             "^/javascript",
             "^/users/login",
             "^/users/logout"
          ],
-         "auth":{  
-            "login_url":"https://app8.com/upload", 
+         "auth":{
+            "login_url":"https://app8.com/upload",
             "username":"test@test.com",
             "password":"test"
          },
          "base_url" : "https://app8.com/"
       },
-      {  
+      {
          "output_file":"app10_p1.json",
          "is_running":"false",
          "redirect_file":"app10_p1_redirect.json",
          "app_name":"app10",
          "start_urls":["http://app10.com/index.php","http://app10.com/page.php","http://app10.com/cart.php","http://app10.com/msg.php"],
          "allowed_domains":["app10.com"],
-         "ignored_paths":[  
+         "ignored_paths":[
             "\\.(jpg|gif|png)$",
             "^/css",
             "^/javascript"
          ],
-         "auth":{ 
-            "login_url":"", 
+         "auth":{
+            "login_url":"",
             "username":"",
             "password":""
          },
           "base_url" : "http://app10.com/"
+      },
+      {
+         "output_file":"bm3_6_p1.json",
+         "is_running":"true",
+         "redirect_file":"bm3_6_p1_redirect.json",
+         "app_name":"bm3_6",
+         "start_urls":["http://bm3.com/bmapp6/index.php"],
+         "allowed_domains":["bm3.com/bmapp6"],
+         "ignored_paths":[
+            "\\.(jpg|gif|png)$",
+            "^/css",
+            "^/javascript"
+         ],
+         "auth":{
+            "login_url":"",
+            "username":"",
+            "password":""
+         },
+          "base_url" : "http://bm3.com/bmapp6/"
       }
    ]
 }

@@ -5,16 +5,22 @@ import urllib, urllib2, webbrowser
 import cookielib
 import re, logging
 from urllib2 import HTTPError, URLError
+import sys
+
 
 def load(filename):
-    f = open(filename, "r")
-    config = json.load(f)
-    count = 0
-    for app in config.get("apps"):
-        if app.get("is_running") == "true":
-            break
-        count = count + 1
-    return config.get("apps")[count]
+    try:
+        f = open(filename, "r")
+        config = json.load(f)
+        count = 0
+        for app in config.get("apps"):
+            if app.get("is_running") == "true":
+                break
+            count = count + 1
+        return config.get("apps")[count]
+    except:
+        logging.error('Config file not found  %s',filename)
+        sys.exit(1)
 
 
 def isvulnerable(inp):
@@ -66,6 +72,9 @@ if login_url != "":
     login_data = urllib.urlencode({'username' : username, 'password' : password})
     lp = opener.open(login_url, login_data)
     s = str(lp.read())
+    index = -1
+    if "sesskey" in s:
+        index = s.index("sesskey")
     index = s.index("sesskey")
     if index >0:
         skey = s[index:index+20]
