@@ -117,7 +117,7 @@ for exploit in exploits:
     url = exploit["url"]
     if type == "get" or type == "GET":
         params = exploit["params"]
-        if "sesskey" in params  and login_url != "":
+        if "sesskey" in params and login_url != "":
             params["sesskey"] = sesskey
         edc = urllib.urlencode(params)
         #url = url + "?"+edc
@@ -125,7 +125,7 @@ for exploit in exploits:
             logging.info("Page url : %s", url)
             logging.info("Attack type : GET")
             resp = opener.open(url, data = edc)
-	    saveResponse(indexCount, resp.read())
+            saveResponse(indexCount, resp.read())
             logging.info("Response url :%s ",resp.url)
             if isvulnerable(resp.url):
                 # logging.info('Bug of type',type,'found at', url
@@ -137,7 +137,6 @@ for exploit in exploits:
         except:
             falsePositiveCount +=1
             logging.info("False positive occured")
-            #logging.info('Exception occured with param',params
     elif type == "post" or type == "POST":
         params = exploit["params"]
         if "sesskey" in params and login_url != "":
@@ -148,7 +147,7 @@ for exploit in exploits:
             logging.info("Page url : %s", url)
             logging.info("Attack type : POST")
             resp = opener.open(url, data = edc)
-	    saveResponse(indexCount, resp.read())
+            saveResponse(indexCount, resp.read())
             logging.info("Response url : %s",resp.url)
             if isvulnerable(resp.url):
                 # logging.info('Bug of type',type,'found at', url
@@ -166,7 +165,7 @@ for exploit in exploits:
         logging.info("Attack type : Redirect")
         try:
             resp = opener.open(url, data=edc)
-	    saveResponse(indexCount, resp.read())
+            saveResponse(indexCount, resp.read())
             logging.info("Response url : " + resp.url)
             if isvulnerable(resp.url):
                 # logging.info('Bug of type',type,'found at', url
@@ -179,10 +178,8 @@ for exploit in exploits:
             falsePositiveCount += 1
             logging.info("False positive occured")
 
-logging.info("=======================================================================================================")
-logging.info("Summary : ")
-logging.info("Total Bugs reported: %s",str(bugCount+falsePositiveCount))
-logging.info("No. of bugs detected : %s", str(bugCount))
-logging.info("No. of false positives detected : %s", str(falsePositiveCount))
-logging.info('Scanning has been completed, please check the result file')
-logging.info("=======================================================================================================")
+print("Summary : ")
+print("Total Bugs reported:"+str(bugCount+falsePositiveCount))
+print("No. of bugs detected:", str(bugCount))
+print("No. of false positives detected:", str(falsePositiveCount))
+

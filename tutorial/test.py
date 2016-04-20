@@ -24,23 +24,21 @@ if index >0:
     name, sesskey = skey.split(":")
     sesskey = str(sesskey).replace("\"", "")
     print sesskey
-params = {
-          "subwiki": "1",
-        "pageid":"1",
-          "_qf__mod_wiki_filesedit_form":"1",
-          "files_filemanager":"160904243",
-            "submitbutton":"Save changes",
-          "sesskey": "X3VfFVSSsr",
-          "returnurl": "www.google.com"
+param =  {
+          "var": "showglobal",
+          "sesskey": "fZLuffQhAN",
+          "return": "aHR0cDovL2dvb2dsZS5jb20="
         }
-url = "https://app2.com/mod/wiki/filesedit.php"
+
+
+
+url = "https://app2.com/calendar/set.php"
 #params = data["params"]
-params["sesskey"] = sesskey
-print params
-edc = urllib.urlencode(params)
+param["sesskey"] = sesskey
+edc = urllib.urlencode(param)
 fullurl = url +"?"+ edc
 try:
-    resp = opener.open(fullurl)
+    resp = opener.open(url, edc)
     print resp.url
 except HTTPError as h:
     print h.reason, h.code

@@ -36,6 +36,7 @@ def isvulnerabilitypresent(inp):
     else:
         return False
 
+
 def urllreadyadded(pageurl):
     for ele in vulnerlist:
         if ele["url"] == pageurl:
@@ -45,12 +46,15 @@ def urllreadyadded(pageurl):
 
 
 def storevulnerabilitydetails(method, pageurl, paramsdict):
-    if True: #pageurl not in pathset:
+    if pageurl not in pathset:
         vdc = dict()
         vdc["url"] = pageurl
         vdc["type"] = method
         vdc["params"] = paramsdict
         vulnerlist.append(vdc)
+        pathset.add(pageurl)
+    else:
+        logging.info("Bug already added  %s",pageurl)
 
 
 def removeasciitext(postdc):
@@ -122,7 +126,6 @@ def launchpostattack(paramlist, method, actionlink, pageurl):
         for pl in payload:
             postparamdictionary[key] = pl
             if sendpostrequest(postparamdictionary,method, actionlink, pageurl):
-                pathset.add(actionlink)
                 logging.info("Vulnerability found at %s", pageurl)
                 return
 
@@ -150,8 +153,7 @@ def launchgetattack(path, paramsdict):
             try:
                 resp = opener.open(path,edc)
                 if isvulnerabilitypresent(resp.url):
-                    pathset.add(url)
-                    storevulnerabilitydetails("GET", path, paramsdict)
+                    storevulnerabilitydetails("GET", url, paramsdict)
                     return
             except HTTPError as h:
                 logging.error('Page cannot be found %s', path)
@@ -208,7 +210,6 @@ def startredirectinjections(redirect):
             try:
                 resp = opener.open(url)
                 if isvulnerabilitypresent(resp.url):
-                    pathset.add(url)
                     logging.info('Referrer Bug found at %s', url)
                     if num ==0:
                         storevulnerabilitydetails("redirect", url, {})
@@ -261,8 +262,8 @@ phase3output = dict()
 injectiondict = dict()
 payload = []
 vulnerlist = []
-pathset = set()
 redirect = dict()
+pathset = set()
 outputpath = ''
 username = ''
 password = ''

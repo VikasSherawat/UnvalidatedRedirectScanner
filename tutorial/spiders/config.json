@@ -1,7 +1,7 @@
 {  "apps":[
       {
          "output_file":"app2_p1.json",
-         "is_running":"false",
+         "is_running":"true",
          "redirect_file":"app2_p1_redirect.json",
          "app_name":"app2",
          "start_urls":[ "https://app2.com/index.php","https://app2.com/mod/wiki/filesedit.php?subwiki=1&pageid=1","https://app2.com/comment","https://app2.com/user/files.php?contextid=15&currentcontext=15","https://app2.com/tag/coursetags_add.php","https://app2.com/backup/backupfilesedit.php?contextid=15&currentcontext=15"],
@@ -62,7 +62,7 @@
       },
       {
          "output_file":"bm3_6_p1.json",
-         "is_running":"true",
+         "is_running":"false",
          "redirect_file":"bm3_6_p1_redirect.json",
          "app_name":"bm3_6",
          "start_urls":["http://bm3.com/bmapp6/index.php"],
@@ -81,7 +81,7 @@
       },
       {
          "output_file":"bm3_6_p1.json",
-         "is_running":"true",
+         "is_running":"false",
          "redirect_file":"bm3_6_p1_redirect.json",
          "app_name":"bm3_6",
          "start_urls":["http://bm3.com/bmapp6/index.php"],
