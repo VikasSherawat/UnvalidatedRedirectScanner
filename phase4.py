@@ -98,7 +98,8 @@ if login_url != "":
     login_data = urllib.urlencode({'username' : username, 'password' : password})
     lp = opener.open(login_url, login_data)
     s = str(lp.read())
-    index = s.index("sesskey")
+    if "sesskey" in s:
+        index = s.index("sesskey")
     if index >0:
         skey = s[index:index+20]
         name, sesskey = skey.split(":")

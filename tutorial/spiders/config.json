@@ -78,6 +78,25 @@
             "password":""
          },
           "base_url" : "http://bm3.com/bmapp6/"
+      },
+      {
+         "output_file":"bm3_6_p1.json",
+         "is_running":"true",
+         "redirect_file":"bm3_6_p1_redirect.json",
+         "app_name":"bm3_6",
+         "start_urls":["http://bm3.com/bmapp6/index.php"],
+         "allowed_domains":["bm3.com/bmapp6"],
+         "ignored_paths":[
+            "\\.(jpg|gif|png)$",
+            "^/css",
+            "^/javascript"
+         ],
+         "auth":{
+            "login_url":"",
+            "username":"",
+            "password":""
+         },
+          "base_url" : "http://bm3.com/bmapp6/"
       }
    ]
 }
