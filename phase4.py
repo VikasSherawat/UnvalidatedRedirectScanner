@@ -48,19 +48,21 @@ logging.basicConfig(filename='logs/phase4.log',level=logging.DEBUG)
 logging.info('---------------------Starting phase4------------------------')
 logging.info('---------------------Validating bugs from phase3------------------------')
 
-
-with open(phase3outputpath) as f:
-    file = json.load(f)
-    exploits = file["exploits"]
-    if "baseurl" in file:
-        base_url = file['baseurl']
-    if "appname" in file:
-        app_name = file['appname']
-    if "loginurl" in file:
-        login_url = file['loginurl']
-    if "logindetails" in file and file['logindetails']:
-        login_detail = file['logindetails'][0]
-
+try:
+    with open(phase3outputpath) as f:
+        file = json.load(f)
+        exploits = file["exploits"]
+        if "baseurl" in file:
+            base_url = file['baseurl']
+        if "appname" in file:
+            app_name = file['appname']
+        if "loginurl" in file:
+            login_url = file['loginurl']
+        if "logindetails" in file and file['logindetails']:
+            login_detail = file['logindetails'][0]
+except:
+    logging.error('Phase 3 output file not found %s',phase3outputpath)
+    sys.exit(1)
 username = login_detail["username"]
 password = login_detail["password"]
 cj = cookielib.CookieJar()
