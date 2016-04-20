@@ -182,6 +182,8 @@ class DmozSpider(scrapy.Spider):
                 requestType = None
             if form.xpath('.//@action'):
                 actionLink = form.xpath('.//@action').extract()[0]
+                if str(actionLink).startswith('/') or "http" not in str(actionLink):
+                    actionLink = urljoin(self.baseurl, actionLink)
             else:
                 actionLink = None
             self.logger.info('Form is %s', form)

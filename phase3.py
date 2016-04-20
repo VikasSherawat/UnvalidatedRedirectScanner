@@ -81,7 +81,11 @@ def sendpostrequest(postparamdictionary, method, actionlink, pageurl):
     #logging.info('Inside send post request method ')
     edc = encodeparams(postparamdictionary)
     try:
-        resp = opener.open(actionlink, edc)
+        if method == 'get' or method == 'GET':
+            actionlink = actionlink +'?'+edc
+            resp = opener.open(actionlink)
+        else:
+            resp = opener.open(actionlink, edc)
         if isvulnerabilitypresent(resp.url):
             storevulnerabilitydetails(method, actionlink,postparamdictionary)
             return True
@@ -189,6 +193,7 @@ def formatoutput(phase3output):
 
 
 def startredirectinjections(redirect):
+    if redirect is not None:
         for eachitem in redirect:
             url = eachitem["from_url"]
             if url in pathset:
