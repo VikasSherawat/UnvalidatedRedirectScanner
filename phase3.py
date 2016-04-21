@@ -7,6 +7,7 @@ import urllib, urllib2
 import cookielib
 from urllib2 import HTTPError, URLError
 import sys
+from urlparse import urlparse
 
 
 def writeoutput(maps):
@@ -63,6 +64,21 @@ def removeasciitext(postdc):
         dc[str(k)[2:-1]] = str(v)[2:-1]
     return dc
 
+def compiledata():
+    if app_name == "app2":
+        path = "https://app2.com/comment/comment_post.php"
+        params = dict()
+        params["returnurl"] = "http://google.com"
+        params["sesskey"] = sesskey
+        launchgetattack(path,params)
+        path = "https://app2.com/tag/coursetags_add.php"
+        param = dict()
+        param["returnurl"] = "http://google.com"
+        param["contextid"]=15
+        param["currentcontext"]=15
+        param["sesskey"] = sesskey
+        launchgetattack(path, param)
+
 
 def encodeparams(postparamdictionary):
     #logging.info('Inside encoded params method for %s', postparamdictionary)
@@ -89,6 +105,7 @@ def sendpostrequest(postparamdictionary, method, actionlink, pageurl):
             actionlink = actionlink +'?'+edc
             resp = opener.open(actionlink)
         else:
+            #print actionlink
             resp = opener.open(actionlink, edc)
         if isvulnerabilitypresent(resp.url):
             storevulnerabilitydetails(method, actionlink,postparamdictionary)
@@ -150,8 +167,13 @@ def launchgetattack(path, paramsdict):
             paramsdict[param] = pl
             edc = urlencode(paramsdict)
             url = path + '?' +edc
+            #print url
+            urlpath =baseurl+urlparse(path).path
+            #print url
+            #print urlpath
             try:
-                resp = opener.open(path,edc)
+                #print url
+                resp = opener.open(url)
                 if isvulnerabilitypresent(resp.url):
                     storevulnerabilitydetails("GET", path, paramsdict)
                     return
@@ -208,6 +230,7 @@ def startredirectinjections(redirect):
                 edc = urlencode(datadc)
                 surl = path + "?" + edc
             try:
+                #print url
                 resp = opener.open(url)
                 if isvulnerabilitypresent(resp.url):
                     logging.info('Referrer Bug found at %s', url)
@@ -304,6 +327,7 @@ opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
 sesskey = ''
 if len(username) >0:
     login_data = urllib.urlencode({'username' : username, 'password' : password})
+    #print  loginurl
     lp = opener.open(loginurl, login_data)
     #print lp.url
     s = str(lp.read())
@@ -319,7 +343,9 @@ if len(username) >0:
 opener.addheaders = [('Referer','https://www.google.com')]
 formatoutput(phase3output)
 redirectdc = readredirectfile()
-startredirectinjections(redirectdc)
+compiledata()
 getinjectionpoint(injectiondict)
+startredirectinjections(redirectdc)
 writeoutput(phase3output)
+logging.info('Phase 3 of Unvalidated Redirect URL has ended. Check the output file for injection points')
 logging.info('Phase 3 of Unvalidated Redirect URL has ended. Check the output file for injection points')
