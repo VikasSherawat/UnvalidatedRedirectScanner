@@ -189,3 +189,4 @@ print("Total Bugs reported:"+str(bugCount+falsePositiveCount))
 print("No. of bugs detected:", str(bugCount))
 print("No. of false positives detected:", str(falsePositiveCount))
 
+
