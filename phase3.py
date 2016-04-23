@@ -64,21 +64,6 @@ def removeasciitext(postdc):
         dc[str(k)[2:-1]] = str(v)[2:-1]
     return dc
 
-def compiledata():
-    if app_name == "app2":
-        path = "https://app2.com/comment/comment_post.php"
-        params = dict()
-        params["returnurl"] = "http://google.com"
-        params["sesskey"] = sesskey
-        launchgetattack(path,params)
-        path = "https://app2.com/tag/coursetags_add.php"
-        param = dict()
-        param["returnurl"] = "http://google.com"
-        param["contextid"]=15
-        param["currentcontext"]=15
-        param["sesskey"] = sesskey
-        launchgetattack(path, param)
-
 
 def encodeparams(postparamdictionary):
     #logging.info('Inside encoded params method for %s', postparamdictionary)
@@ -175,7 +160,7 @@ def launchgetattack(path, paramsdict):
                 #print url
                 resp = opener.open(url)
                 if isvulnerabilitypresent(resp.url):
-                    storevulnerabilitydetails("GET", path, paramsdict)
+                    storevulnerabilitydetails("get", path, paramsdict)
                     return
             except HTTPError as h:
                 logging.error('Page cannot be found %s', path)
@@ -343,7 +328,7 @@ if len(username) >0:
 opener.addheaders = [('Referer','https://www.google.com')]
 formatoutput(phase3output)
 redirectdc = readredirectfile()
-compiledata()
+#compiledata()
 getinjectionpoint(injectiondict)
 startredirectinjections(redirectdc)
 writeoutput(phase3output)

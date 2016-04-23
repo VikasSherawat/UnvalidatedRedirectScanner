@@ -19,7 +19,7 @@ def saveResponse(testId, content):
     url = "file:///" + path + "/" + directory + "/response"+str(testId)+".html"
     driver = webdriver.Firefox()
     driver.get(url)
-    time.sleep(3)
+    time.sleep(2)
     driver.close()
 
 def clearFolder(folder_path):
@@ -98,6 +98,7 @@ if login_url != "":
     login_data = urllib.urlencode({'username' : username, 'password' : password})
     lp = opener.open(login_url, login_data)
     s = str(lp.read())
+    index = -1
     if "sesskey" in s:
         index = s.index("sesskey")
     if index >0:
@@ -120,11 +121,11 @@ for exploit in exploits:
         if "sesskey" in params and login_url != "":
             params["sesskey"] = sesskey
         edc = urllib.urlencode(params)
-        #url = url + "?"+edc
+        url = url + "?"+edc
         try:
             logging.info("Page url : %s", url)
             logging.info("Attack type : GET")
-            resp = opener.open(url, data = edc)
+            resp = opener.open(url)
             saveResponse(indexCount, resp.read())
             logging.info("Response url :%s ",resp.url)
             if isvulnerable(resp.url):
@@ -161,6 +162,11 @@ for exploit in exploits:
             #logging.info('exception occured with param',params
             logging.info("False positive occured")
     else:
+        params = exploit["params"]
+        if "sesskey" in params and login_url != "":
+            params["sesskey"] = sesskey
+        edc = urllib.urlencode(params)
+        url = url+'?'+edc
         logging.info("Page url : %s", url)
         logging.info("Attack type : Redirect")
         try:

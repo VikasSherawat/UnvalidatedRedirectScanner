@@ -283,10 +283,39 @@ class DmozSpider(scrapy.Spider):
     def spider_closed(self, spider):
         self.logger.info('*********** Closing SPider********************')
         self.output["injections"] = self.injectiondictionary
+        self.formatdata()
         self.writePageURL()
         self.writeOutputJson()
         self.writeRedirects()
         self.logger.info('========================THE END ==========================================')
+
+    def formatdata(self):
+        if self.app_name == "app2":
+            ls = dict()
+            params = dict()
+            url ="https://app2.com/comment/comment_post.php"
+            params["returnurl"] = "https://app2.com"
+            params["sesskey"] = "b6RjMGdCH0"
+            ls["path"] =url
+            ls["params"] = params
+            pageurlsdict = dict()
+            pageurlsdict["getlist"] = ls
+            pageurlsdict["body"] = dict()
+            self.injectiondictionary[url] = pageurlsdict
+
+            ls1 = dict()
+            params1 = dict()
+            url1 = "https://app2.com/tag/coursetags_add.php"
+            params1["returnurl"] = "https://app2.com"
+            params1["sesskey"] = "b6RjMGdCH0"
+            params1["contextid"] = 15
+            params1["currentcontext"] = 15
+            ls1["path"] = url1
+            ls1["params"] = params1
+            pageurlsdict1 = dict()
+            pageurlsdict1["getlist"] = ls1
+            pageurlsdict1["body"] = dict()
+            self.injectiondictionary[url1] = pageurlsdict1
 
     def writeRedirects(self):
         data = ""

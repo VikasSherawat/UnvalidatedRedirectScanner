@@ -9,24 +9,25 @@ import cookielib
 
 username = "admin"
 password = "AdminAdmin1!"
-
+login_url = 'https://bm2.com/login.php'
 cj = cookielib.CookieJar()
 opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cj))
+if len(username) >0:
+    login_data = urllib.urlencode({'username' : username, 'password' : password})
+    #print  loginurl
+    lp = opener.open(login_url, login_data)
 opener.addheaders = [('Referer','https://www.google.com')]
 
 param =  {
-        "i": "http://google.com",
-        "m": "gbook",
-        "t": "cy9NLS5Jys%2FPBgA%3D",
-        "mod": "qcomment"
+        "encode":"aHR0cDovL2dvb2dsZS5jb20="
       }
-url = "http://app10.com/search.php?query=&mod_id=http%3A%2F%2Fgoogle.com&AXSRF_token="
+url = "https://bm2.com/surveyRedirect.php"
 #params = data["params"]
 param["sesskey"] = ""
 edc = urllib.urlencode(param)
 fullurl = url +"?"+ edc
 try:
-    resp = opener.open(url)
+    resp = opener.open(fullurl)
     print resp.url
 except HTTPError as h:
     print h.reason, h.code
